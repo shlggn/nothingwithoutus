@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import nothingwihtoutuslogo from "/nothingwithoutus.webp";
 import { Instagram } from "lucide-react";
+import SponsorForm from "./SponsorForm";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSponsorFormOpen, setIsSponsorFormOpen] = useState(false);
   const { pathname } = useLocation();
   const isHome = pathname === "/";
 
@@ -76,12 +78,12 @@ const Navbar = () => {
             </svg>
           </a>
         </div>
-        <a
-          href="/recommend"
+        <button
+          onClick={() => setIsSponsorFormOpen(true)}
           className="text-lg font-bold bg-transparent text-foreground md:text-primary-foreground px-5 py-2 rounded-full border border-foreground md:border-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200"
         >
           Be a Sponsor
-        </a>
+        </button>
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMobileMenu}
@@ -108,7 +110,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-4 right-4 mt-2 glass rounded-2xl overflow-hidden shadow-lg">
+        <div className="md:hidden absolute top-full left-4 right-4 mt-2 bg-background border-2 border-border rounded-2xl overflow-hidden shadow-2xl">
           <div className="flex flex-col p-4 space-y-2">
             <a 
               href="/#content" 
@@ -182,6 +184,9 @@ const Navbar = () => {
           
         </div>
       )}
+
+      {/* Sponsor Form Modal */}
+      <SponsorForm isOpen={isSponsorFormOpen} onClose={() => setIsSponsorFormOpen(false)} />
     </nav>
   );
 };

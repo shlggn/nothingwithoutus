@@ -60,7 +60,7 @@ const BeAGuest = () => {
             </p>
             
             <a
-              href="#apply"
+              href="/recommend"
               className="inline-flex items-center gap-2 text-sm font-semibold bg-primary-foreground text-foreground px-6 py-3 rounded-full hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200 uppercase tracking-wider"
             >
               Apply Now

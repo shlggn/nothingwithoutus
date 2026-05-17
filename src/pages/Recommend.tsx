@@ -51,7 +51,7 @@ const categories = [
 ];
 
 const inputBase =
-  "w-full glass rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 bg-transparent border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all";
+  "w-full glass rounded-xl px-4 py-3 text-md text-foreground placeholder:text-muted-foreground/70 bg-transparent border border-border/40 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all";
 
 const Recommend = () => {
   const [form, setForm] = useState<FormState>(initialState);
@@ -101,7 +101,7 @@ const Recommend = () => {
         <div className="max-w-3xl mx-auto">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-md text-muted-foreground hover:text-foreground transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to stories
@@ -112,7 +112,7 @@ const Recommend = () => {
             <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative">
-              <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-3 inline-flex items-center gap-2">
+              <p className="text-primary font-semibold text-md tracking-widest uppercase mb-3 inline-flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5" />
                 Recommend Someone
               </p>
@@ -144,7 +144,7 @@ const Recommend = () => {
               </p>
               <Link
                 to="/"
-                className="inline-flex items-center gap-2 text-sm font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all"
+                className="inline-flex items-center gap-2 text-md font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all"
               >
                 Back to stories
               </Link>
@@ -154,7 +154,7 @@ const Recommend = () => {
               {/* About them */}
               <section className="space-y-5">
                 <div>
-                  <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-1">
+                  <p className="text-primary font-semibold text-md tracking-widest uppercase mb-1">
                     About them
                   </p>
                   <h2 className="font-display text-xl font-bold text-foreground">The person you'd like to nominate</h2>
@@ -203,7 +203,7 @@ const Recommend = () => {
                           key={c}
                           type="button"
                           onClick={() => update("category", c)}
-                          className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full text-black font-medium transition-all border border-foreground ${
                             active
                               ? "bg-primary text-primary-foreground shadow-md shadow-primary/25"
                               : "glass text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -237,7 +237,7 @@ const Recommend = () => {
               {/* About you */}
               <section className="space-y-5">
                 <div>
-                  <p className="text-primary font-semibold text-xs tracking-widest uppercase mb-1">
+                  <p className="text-primary font-semibold text-md tracking-widest uppercase mb-1">
                     About you
                   </p>
                   <h2 className="font-display text-xl font-bold text-foreground">So we know who to thank</h2>
@@ -286,24 +286,24 @@ const Recommend = () => {
                   onChange={(e) => update("consent", e.target.checked)}
                   className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0"
                 />
-                <span className="text-xs text-muted-foreground leading-relaxed">
+                <span className="text-md text-muted-foreground leading-relaxed">
                   I confirm I have a genuine connection to this person and, where possible, their permission to share
                   their name with the Enabled Talent team. We'll always reach out before publishing anything.
                 </span>
               </label>
               {errors.consent && (
-                <p className="text-xs text-destructive -mt-6 ml-1">{errors.consent}</p>
+                <p className="text-md text-destructive -mt-6 ml-1">{errors.consent}</p>
               )}
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full text-md font-semibold hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200"
                 >
                   <Send className="w-4 h-4" />
                   Send recommendation
                 </button>
-                <p className="text-xs text-muted-foreground sm:ml-2">
+                <p className="text-md text-muted-foreground sm:ml-2">
                   Real voices. Real journeys. Real strength.
                 </p>
               </div>
@@ -332,14 +332,14 @@ const Field = ({
 }) => (
   <div className="space-y-2">
     <div className="flex items-baseline justify-between gap-2">
-      <label className="text-sm font-medium text-foreground">
+      <label className="text-md font-medium text-foreground">
         {label}
         {required && <span className="text-primary ml-1">*</span>}
       </label>
       {hint && <span className="text-[11px] text-muted-foreground/80">{hint}</span>}
     </div>
     {children}
-    {error && <p className="text-xs text-destructive">{error}</p>}
+    {error && <p className="text-md text-destructive">{error}</p>}
   </div>
 );
 
