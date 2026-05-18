@@ -35,7 +35,7 @@ const AboutTeaser = () => {
                 </a>
                 <a
                   href="/recommend"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground glass px-5 py-2.5 rounded-full hover:bg-muted/60 transition-all"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground shadow-lg glass px-5 py-2.5 rounded-full hover:bg-muted/60 transition-all"
                 >
                   <Mail className="w-4 h-4" />
                   Recommend someone
@@ -50,7 +50,7 @@ const AboutTeaser = () => {
                 { k: "Community-led", v: "nominations & partnerships" },
                 { k: "Global archive", v: "of capability & strength" },
               ].map((s) => (
-                <div key={s.k} className="glass rounded-2xl p-5">
+                <div key={s.k} className="glass rounded-2xl p-5 shadow-lg">
                   <p className="font-display text-lg font-semibold text-foreground mb-1">{s.k}</p>
                   <p className="text-md text-muted-foreground leading-relaxed">{s.v}</p>
                 </div>

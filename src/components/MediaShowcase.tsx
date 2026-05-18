@@ -103,9 +103,9 @@ const ScrollSection = ({ section, index }: { section: MediaSection; index: numbe
               <section.icon className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <div className="flex items-center gap-3 mb-1">
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3 mb-1">
                 <h3 className="font-display text-2xl md:text-3xl text-white font-semibold">{section.label}</h3>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-primary-foreground bg-primary px-3 py-1 rounded-full">
+                <span className="font-semibold tracking-wider text-xs uppercase text-primary-foreground bg-primary px-3 py-1 rounded-full w-fit">
                   {section.tagline}
                 </span>
               </div>

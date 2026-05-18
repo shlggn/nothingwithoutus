@@ -29,7 +29,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-16 text-lg font-bold text-foreground tracking-wide">
           <a href="/#content" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Stories</a>
           <a href="/about" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">About</a>
-          <Link to="/about#contact" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Get Involved</Link>
+          <a href="/#hosts" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Get Involved</a>
         </div>
         {/* Social Media Icons */}
         <div className="hidden md:flex items-center gap-8 text-foreground">
@@ -127,7 +127,7 @@ const Navbar = () => {
               About
             </a>
             <Link 
-              to="/about#contact" 
+              to="/#hosts" 
               onClick={closeMobileMenu}
               className="px-4 py-3 rounded-lg text-lg font-bold text-foreground hover:bg-primary/10 transition-all"
             >

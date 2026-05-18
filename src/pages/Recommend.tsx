@@ -203,10 +203,10 @@ const Recommend = () => {
                           key={c}
                           type="button"
                           onClick={() => update("category", c)}
-                          className={`px-4 py-2 rounded-full text-black font-medium transition-all border border-foreground ${
+                          className={`px-4 py-2 rounded-full font-medium transition-all border border-foreground/40 shadow-md ${
                             active
                               ? "bg-primary text-primary-foreground shadow-md shadow-primary/25"
-                              : "glass text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                              : "glass text-foreground hover:text-foreground hover:bg-muted/60"
                           }`}
                         >
                           {c}

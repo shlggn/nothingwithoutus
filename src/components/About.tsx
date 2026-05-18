@@ -35,7 +35,7 @@ const About = () => {
                   "Surface superpowers built through barriers",
                   "Inform systems through real voices",
                 ].map((point) => (
-                  <div key={point} className="glass rounded-2xl px-4 py-3 text-md text-muted-foreground leading-snug">
+                  <div key={point} className="glass rounded-2xl px-4 py-3 text-md text-muted-foreground leading-snug shadow-lg">
                     {point}
                   </div>
                 ))}
@@ -112,7 +112,7 @@ const About = () => {
               { t: "Community Leaders", d: "Individuals leading change in the communities they call home." },
               { t: "Everyday Strength", d: "People whose daily resilience reveals capability the world rarely sees." },
             ].map((b) => (
-              <div key={b.t} className="glass rounded-2xl p-5">
+              <div key={b.t} className="glass rounded-2xl p-5 shadow-lg">
                 <p className="font-display text-base font-semibold text-foreground mb-1.5">{b.t}</p>
                 <p className="text-md text-muted-foreground leading-relaxed">{b.d}</p>
               </div>
@@ -142,7 +142,7 @@ const About = () => {
               { t: "Global Series", d: "Recognition as part of a growing global archive." },
               { t: "Future Showcases", d: "Eligibility for upcoming showcases and awards." },
             ].map((b) => (
-              <div key={b.t} className="glass rounded-2xl p-5">
+              <div key={b.t} className="glass rounded-2xl p-5 shadow-xl">
                 <p className="font-display text-base font-semibold text-foreground mb-1.5">{b.t}</p>
                 <p className="text-md text-muted-foreground leading-relaxed">{b.d}</p>
               </div>

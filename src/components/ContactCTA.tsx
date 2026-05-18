@@ -17,7 +17,7 @@ const ContactCTA = () => {
           </p>
 
           <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10 text-left">
-            <div className="glass rounded-2xl p-5">
+            <div className="glass rounded-2xl p-5 shadow-xl">
               <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
                 <Users className="w-4 h-4 text-primary" />
               </div>
@@ -26,7 +26,7 @@ const ContactCTA = () => {
                 Recommend individuals from your community whose journeys deserve to be heard.
               </p>
             </div>
-            <div className="glass rounded-2xl p-5">
+            <div className="glass rounded-2xl p-5 shadow-xl">
               <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
                 <BookOpen className="w-4 h-4 text-primary" />
               </div>

@@ -15,14 +15,21 @@ const Hosts = () => {
   ];
 
   return (
-    <section className="w-full px-6 md:px-14 py-24 relative">
+    <section id="hosts" className="w-full px-6 md:px-14 py-24 relative">
+      <div className="border-t max-w-3xl mx-auto pb-20" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20" />
       
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-10 md:gap-14">
           {/* Label */}
-          <div>
-            <p className="text-primary font-semibold text-lg border-b border-primary bg-primary-foreground px-4 tracking-widest uppercase">
+          <div className="flex items-start justify-center md:justify-start">
+            <p className="text-primary-foreground font-bold text-xl md:text-2xl tracking-[0.3em] uppercase
+                          md:writing-mode-vertical md:rotate-180
+                          border-b-2 md:border-b-0 md:border-l-4 border-primary-foreground 
+                          bg-gradient-to-r md:bg-gradient-to-b from-[#3a3a39] to-[#3a3a39]
+                          px-6 py-3 md:px-4 md:py-8
+                          shadow-sm md:shadow-lg md:shadow-primary/10
+                          rounded-lg md:rounded-2xl">
               Our Hosts
             </p>
           </div>

@@ -174,3 +174,10 @@
   background: hsl(var(--primary));
   background-clip: padding-box;
 }
+
+/* Vertical text utilities */
+@media (min-width: 768px) {
+  .md\:writing-mode-vertical {
+    writing-mode: vertical-rl;
+  }
+}
