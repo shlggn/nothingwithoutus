@@ -80,7 +80,7 @@ const Navbar = () => {
         </div>
         <button
           onClick={() => setIsSponsorFormOpen(true)}
-          className="text-lg font-bold bg-primary-foreground bg-[#686866] text-foreground text-primary-foreground px-5 py-2 rounded-full border border-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200 border-2"
+          className="text-lg font-bold bg-[#686866] text-foreground text-primary-foreground px-5 py-2 rounded-full border border-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200 border-2"
         >
           Be a Sponsor
         </button>
