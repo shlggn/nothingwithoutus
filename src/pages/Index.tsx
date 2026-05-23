@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MediaShowcase from "@/components/MediaShowcase";
@@ -7,6 +8,33 @@ import AboutTeaser from "@/components/AboutTeaser";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  useEffect(() => {
+    // Handle hash scrolling on mount and hash changes
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        // Remove the # from hash
+        const id = hash.substring(1);
+        // Small delay to ensure content is rendered
+        setTimeout(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    };
+
+    handleHashScroll();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashScroll);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
       {/* Ambient background blobs */}

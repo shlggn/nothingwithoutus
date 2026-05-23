@@ -94,7 +94,7 @@ const ScrollSection = ({ section, index }: { section: MediaSection; index: numbe
   };
 
   return (
-    <div className="py-14" style={{ background: "#6B5A4E" }}>
+    <div id="media" className="py-14" style={{ background: "#6B5A4E" }}>
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="flex items-end justify-between mb-8">

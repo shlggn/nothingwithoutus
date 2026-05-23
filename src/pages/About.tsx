@@ -4,8 +4,36 @@ import ContactCTA from "@/components/ContactCTA";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { useEffect } from "react";
 
 const AboutPage = () => {
+  useEffect(() => {
+    // Handle hash scrolling on mount and hash changes
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        // Remove the # from hash
+        const id = hash.substring(1);
+        // Small delay to ensure content is rendered
+        setTimeout(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    };
+
+    handleHashScroll();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashScroll);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
       {/* Ambient background blobs */}

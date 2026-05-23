@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import nothingwihtoutuslogo from "/nothingwithoutus.webp";
 import { Instagram } from "lucide-react";
 import SponsorForm from "./SponsorForm";
@@ -27,9 +27,9 @@ const Navbar = () => {
           {/* Nothing Without Us */}
         </a>
         <div className="hidden md:flex items-center gap-16 text-lg font-bold text-foreground tracking-wide">
-          <a href="/#content" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Stories</a>
+          <a href="/#media" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Stories</a>
           <a href="/about" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">About</a>
-          <a href="/#hosts" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Get Involved</a>
+          <a href="/about#contact" className="px-4 py-1.5 rounded-full hover:border hover:border-foreground hover:text-foreground transition-all">Get Involved</a>
         </div>
         {/* Social Media Icons */}
         <div className="hidden md:flex items-center gap-8 text-foreground">
@@ -80,7 +80,7 @@ const Navbar = () => {
         </div>
         <button
           onClick={() => setIsSponsorFormOpen(true)}
-          className="text-lg font-bold bg-transparent text-foreground md:text-primary-foreground px-5 py-2 rounded-full border border-foreground md:border-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200"
+          className="text-lg font-bold bg-primary-foreground bg-[#686866] text-foreground text-primary-foreground px-5 py-2 rounded-full border border-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200 border-2"
         >
           Be a Sponsor
         </button>
@@ -126,13 +126,13 @@ const Navbar = () => {
             >
               About
             </a>
-            <Link 
-              to="/#hosts" 
+            <a 
+              href="/about#contact" 
               onClick={closeMobileMenu}
               className="px-4 py-3 rounded-lg text-lg font-bold text-foreground hover:bg-primary/10 transition-all"
             >
               Get Involved
-            </Link>
+            </a>
             {/* Social Media Icons */}
             <div className="flex px-4 py-4 items-center gap-8 text-foreground">
               <a 

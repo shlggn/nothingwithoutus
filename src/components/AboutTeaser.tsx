@@ -43,7 +43,7 @@ const AboutTeaser = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                 { k: "Lived experience", v: "as insight, not exception" },
                 { k: "No cost", v: "to be featured — ever" },
