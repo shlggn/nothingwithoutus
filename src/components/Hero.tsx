@@ -31,7 +31,11 @@ const Hero = () => {
             Lived Experience Series · by Enabled Talent
           </p>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[0.95] text-foreground mb-6 font-bold">
-            What looks like
+            
+            <span className="relative inline-block">
+              <span className="relative z-10">What looks like</span>
+              <span className="absolute bottom-2 left-0 w-full h-3 bg-red-500/20 -rotate-2" />
+            </span>
             <br />
             a barrier is often
             <br />

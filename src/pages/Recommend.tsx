@@ -1,21 +1,52 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Send, Sparkles, Check } from "lucide-react";
+import { ArrowLeft, Send, Sparkles, Check, Loader2 } from "lucide-react";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import { submitRecommendation } from "@/lib/firebaseService";
 
 const recommendSchema = z.object({
-  nomineeName: z.string().trim().nonempty({ message: "Please share their name" }).max(100),
-  nomineeEmail: z.string().trim().email({ message: "Enter a valid email" }).max(255).optional().or(z.literal("")),
-  relationship: z.string().trim().nonempty({ message: "Tell us how you know them" }).max(150),
-  category: z.string().trim().nonempty({ message: "Pick a focus area" }),
-  story: z.string().trim().min(40, { message: "A few more sentences would help (min 40 chars)" }).max(1500),
-  yourName: z.string().trim().nonempty({ message: "Your name helps us follow up" }).max(100),
-  yourEmail: z.string().trim().email({ message: "Enter a valid email" }).max(255),
-  organization: z.string().trim().max(150).optional().or(z.literal("")),
-  consent: z.literal(true, { errorMap: () => ({ message: "Please confirm consent before sending" }) }),
+  nomineeName: z.string()
+    .trim()
+    .min(1, { message: "Please share their name" })
+    .max(100, { message: "Name must be 100 characters or less" })
+    .regex(/^[a-zA-Z\s\-'\.]+$/, { message: "Please enter a valid name" }),
+  nomineeEmail: z.string()
+    .trim()
+    .email({ message: "Enter a valid email" })
+    .max(255, { message: "Email must be 255 characters or less" })
+    .optional()
+    .or(z.literal("")),
+  relationship: z.string()
+    .trim()
+    .min(1, { message: "Tell us how you know them" })
+    .max(150, { message: "Relationship must be 150 characters or less" }),
+  category: z.string()
+    .trim()
+    .min(1, { message: "Pick a focus area" }),
+  story: z.string()
+    .trim()
+    .min(40, { message: "A few more sentences would help (min 40 chars)" })
+    .max(1500, { message: "Story must be 1500 characters or less" }),
+  yourName: z.string()
+    .trim()
+    .min(1, { message: "Your name helps us follow up" })
+    .max(100, { message: "Name must be 100 characters or less" })
+    .regex(/^[a-zA-Z\s\-'\.]+$/, { message: "Please enter a valid name" }),
+  yourEmail: z.string()
+    .trim()
+    .email({ message: "Enter a valid email" })
+    .max(255, { message: "Email must be 255 characters or less" }),
+  organization: z.string()
+    .trim()
+    .max(150, { message: "Organization must be 150 characters or less" })
+    .optional()
+    .or(z.literal("")),
+  consent: z.literal(true, { 
+    errorMap: () => ({ message: "Please confirm consent before sending" }) 
+  }),
 });
 
 type FormState = {
@@ -57,7 +88,22 @@ const Recommend = () => {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  // Check if all required fields are filled and valid
+  const isFormValid = () => {
+    return (
+      form.nomineeName.trim().length > 0 &&
+      form.relationship.trim().length > 0 &&
+      form.category.trim().length > 0 &&
+      form.story.trim().length >= 40 &&
+      form.yourName.trim().length > 0 &&
+      form.yourEmail.trim().length > 0 &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.yourEmail.trim()) &&
+      form.consent === true
+    );
+  };
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -69,7 +115,7 @@ const Recommend = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = recommendSchema.safeParse(form);
     if (!result.success) {
@@ -86,11 +132,26 @@ const Recommend = () => {
       });
       return;
     }
-    setSubmitted(true);
-    toast({
-      title: "Thank you for sharing this story with us",
-      description: "Our team will review and reach out within a few days.",
-    });
+
+    // Submit to Firebase
+    setIsSubmitting(true);
+    try {
+      await submitRecommendation(result.data as any);
+      setSubmitted(true);
+      toast({
+        title: "Thank you for sharing this story with us",
+        description: "Our team will review and reach out within a few days.",
+      });
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast({
+        title: "Something went wrong",
+        description: error instanceof Error ? error.message : "Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -169,6 +230,9 @@ const Recommend = () => {
                       value={form.nomineeName}
                       onChange={(e) => update("nomineeName", e.target.value)}
                       maxLength={100}
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.nomineeName ? "true" : "false"}
                     />
                   </Field>
                   <Field label="Their email" error={errors.nomineeEmail} hint="Optional">
@@ -179,6 +243,7 @@ const Recommend = () => {
                       value={form.nomineeEmail}
                       onChange={(e) => update("nomineeEmail", e.target.value)}
                       maxLength={255}
+                      aria-invalid={errors.nomineeEmail ? "true" : "false"}
                     />
                   </Field>
                 </div>
@@ -191,6 +256,9 @@ const Recommend = () => {
                     value={form.relationship}
                     onChange={(e) => update("relationship", e.target.value)}
                     maxLength={150}
+                    required
+                    aria-required="true"
+                    aria-invalid={errors.relationship ? "true" : "false"}
                   />
                 </Field>
 
@@ -219,7 +287,7 @@ const Recommend = () => {
                 <Field
                   label="Tell us their story, in your words"
                   error={errors.story}
-                  hint={`${form.story.length}/1500`}
+                  hint={`${form.story.length}/1500 • min 40 chars`}
                   required
                 >
                   <textarea
@@ -228,6 +296,10 @@ const Recommend = () => {
                     value={form.story}
                     onChange={(e) => update("story", e.target.value)}
                     maxLength={1500}
+                    minLength={40}
+                    required
+                    aria-required="true"
+                    aria-invalid={errors.story ? "true" : "false"}
                   />
                 </Field>
               </section>
@@ -252,6 +324,9 @@ const Recommend = () => {
                       value={form.yourName}
                       onChange={(e) => update("yourName", e.target.value)}
                       maxLength={100}
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.yourName ? "true" : "false"}
                     />
                   </Field>
                   <Field label="Your email" error={errors.yourEmail} required>
@@ -262,6 +337,9 @@ const Recommend = () => {
                       value={form.yourEmail}
                       onChange={(e) => update("yourEmail", e.target.value)}
                       maxLength={255}
+                      required
+                      aria-required="true"
+                      aria-invalid={errors.yourEmail ? "true" : "false"}
                     />
                   </Field>
                 </div>
@@ -274,6 +352,7 @@ const Recommend = () => {
                     value={form.organization}
                     onChange={(e) => update("organization", e.target.value)}
                     maxLength={150}
+                    aria-invalid={errors.organization ? "true" : "false"}
                   />
                 </Field>
               </section>
@@ -285,6 +364,9 @@ const Recommend = () => {
                   checked={form.consent}
                   onChange={(e) => update("consent", e.target.checked)}
                   className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0"
+                  required
+                  aria-required="true"
+                  aria-invalid={errors.consent ? "true" : "false"}
                 />
                 <span className="text-md text-muted-foreground leading-relaxed">
                   I confirm I have a genuine connection to this person and, where possible, their permission to share
@@ -298,10 +380,20 @@ const Recommend = () => {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full text-md font-semibold hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200"
+                  disabled={isSubmitting || !isFormValid()}
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full text-md font-semibold hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  <Send className="w-4 h-4" />
-                  Send recommendation
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Send recommendation
+                    </>
+                  )}
                 </button>
                 <p className="text-md text-muted-foreground sm:ml-2">
                   Real voices. Real journeys. Real strength.
